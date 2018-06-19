@@ -1,7 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import os,glob,cv2
-# import sys,argparse
+import os
 import pickle
 
 def predict(input_data):
@@ -52,4 +51,6 @@ if __name__ == "__main__":
     raw_images, raw_labels = pickle.load(open(train_file, 'rb'))[0:100]
 
     predicted_labels = predict(raw_images)
-    print(predicted_labels.shape)
+    correct_prediction = np.equal(predicted_labels, np.array([i[0] for i in raw_labels]))
+    accuracy = np.mean(correct_prediction)
+    print(accuracy)

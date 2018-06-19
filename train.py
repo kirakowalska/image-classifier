@@ -1,11 +1,5 @@
 import dataset
 import tensorflow as tf
-# import time
-# from datetime import timedelta
-# import math
-# import random
-# import numpy as np
-# import os
 from imgaug import augmenters as iaa
 
 #Adding Seed so that random initialization is consistent

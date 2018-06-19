@@ -1,6 +1,4 @@
-# import cv2
 import os
-# import glob
 from sklearn.utils import shuffle
 import numpy as np
 import pickle
