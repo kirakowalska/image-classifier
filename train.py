@@ -12,7 +12,7 @@ set_random_seed(2)
 batch_size = 32
 
 # Data augmentation
-augment_images = False
+augment_images = True
 seq = iaa.Sequential([
     iaa.Crop(px=(0, 5)), # crop images from each side by 0 to 16px (randomly chosen)
     iaa.Affine(
@@ -26,17 +26,19 @@ num_classes = len(classes)
 
 # 20% of the data will automatically be used for validation
 validation_size = 0.2
+test_size = 0.2
 img_size = 56
 num_channels = 1
 train_path=''
 
 # We shall load all the training and validation images and labels into memory and use that during training
-data = dataset.read_train_sets(train_path, img_size, num_channels, classes, validation_size=validation_size)
+data = dataset.read_train_sets(train_path, img_size, num_channels, classes, validation_size=validation_size,test_size=test_size)
 
 
 print("Complete reading input data. Will Now print a snippet of it")
 print("Number of files in Training-set:\t\t{}".format(len(data.train.labels)))
 print("Number of files in Validation-set:\t{}".format(len(data.valid.labels)))
+print("Number of files in Test-set:\t{}".format(len(data.test.labels)))
 
 
 session = tf.Session()
@@ -209,4 +211,14 @@ def train(num_iteration):
 
     total_iterations += num_iteration
 
-train(num_iteration=9000)
+def test():
+    feed_dict_test = {x: data.test.images,
+                    y_true: data.test.labels}
+    acc = session.run(accuracy, feed_dict=feed_dict_test)
+    print("Test accuracy:",acc)
+
+# Train
+train(num_iteration=16000) #4000 (16000)
+
+# Test on unseen data
+test()
