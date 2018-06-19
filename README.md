@@ -16,9 +16,9 @@ We split the data into three data sets:
 
 ## Performance
 
-Test accuracy: 91.93%
+Test accuracy: **91.93%**
 
-Test accuracy with data augmentation during training: 92.57%
+Test accuracy with data augmentation during training: **92.57%**
 
 Test accuracy is the expected accuracy of the classifier. It is estimated by running the classifier on 20% of data that was withheld from training.
 
