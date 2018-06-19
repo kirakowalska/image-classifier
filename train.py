@@ -218,7 +218,7 @@ def test():
     print("Test accuracy:",acc)
 
 # Train
-train(num_iteration=16000) #4000 (16000)
+train(num_iteration=16000)
 
 # Test on unseen data
 test()
