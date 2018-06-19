@@ -1,11 +1,12 @@
 import dataset
 import tensorflow as tf
-import time
-from datetime import timedelta
-import math
-import random
-import numpy as np
-import os
+# import time
+# from datetime import timedelta
+# import math
+# import random
+# import numpy as np
+# import os
+from imgaug import augmenters as iaa
 
 #Adding Seed so that random initialization is consistent
 from numpy.random import seed
@@ -16,8 +17,16 @@ set_random_seed(2)
 
 batch_size = 32
 
+# Data augmentation
+augment_images = False
+seq = iaa.Sequential([
+    iaa.Crop(px=(0, 5)), # crop images from each side by 0 to 16px (randomly chosen)
+    iaa.Affine(
+        scale={"x": (0.8, 1.2), "y": (0.8, 1.2)},
+        rotate=(-25, 25))
+])
+
 #Prepare input data
-#classes = os.listdir('training_data')
 classes = range(0,36)
 num_classes = len(classes)
 
@@ -27,14 +36,13 @@ img_size = 56
 num_channels = 1
 train_path=''
 
-# We shall load all the training and validation images and labels into memory using openCV and use that during training
+# We shall load all the training and validation images and labels into memory and use that during training
 data = dataset.read_train_sets(train_path, img_size, num_channels, classes, validation_size=validation_size)
 
 
 print("Complete reading input data. Will Now print a snippet of it")
 print("Number of files in Training-set:\t\t{}".format(len(data.train.labels)))
 print("Number of files in Validation-set:\t{}".format(len(data.valid.labels)))
-
 
 
 session = tf.Session()
@@ -184,6 +192,9 @@ def train(num_iteration):
                    total_iterations + num_iteration):
 
         x_batch, y_true_batch = data.train.next_batch(batch_size)
+        # Augment images (optional)
+        if augment_images:
+            x_batch = seq.augment_images(x_batch)
         x_valid_batch, y_valid_batch = data.valid.next_batch(batch_size)
 
         
@@ -204,4 +215,4 @@ def train(num_iteration):
 
     total_iterations += num_iteration
 
-train(num_iteration=3000)
+train(num_iteration=9000)

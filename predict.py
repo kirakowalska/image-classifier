@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import os,glob,cv2
-import sys,argparse
+# import sys,argparse
 import pickle
 
 def predict(input_data):

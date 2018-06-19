@@ -1,6 +1,6 @@
-import cv2
+# import cv2
 import os
-import glob
+# import glob
 from sklearn.utils import shuffle
 import numpy as np
 import pickle
@@ -33,8 +33,6 @@ class DataSet(object):
 
     self._images = images
     self._labels = labels
-    # self._img_names = img_names
-    # self._cls = cls
     self._epochs_done = 0
     self._index_in_epoch = 0
 
@@ -45,14 +43,6 @@ class DataSet(object):
   @property
   def labels(self):
     return self._labels
-  #
-  # @property
-  # def img_names(self):
-  #   return self._img_names
-  #
-  # @property
-  # def cls(self):
-  #   return self._cls
 
   @property
   def num_examples(self):
@@ -75,7 +65,7 @@ class DataSet(object):
       assert batch_size <= self._num_examples
     end = self._index_in_epoch
 
-    return self._images[start:end], self._labels[start:end] #, self._img_names[start:end], self._cls[start:end]
+    return self._images[start:end], self._labels[start:end]
 
 
 def read_train_sets(train_path, image_size, num_channels, classes, validation_size):
@@ -91,13 +81,9 @@ def read_train_sets(train_path, image_size, num_channels, classes, validation_si
 
   validation_images = images[:validation_size]
   validation_labels = labels[:validation_size]
-  # validation_img_names = img_names[:validation_size]
-  # validation_cls = cls[:validation_size]
 
   train_images = images[validation_size:]
   train_labels = labels[validation_size:]
-  # train_img_names = img_names[validation_size:]
-  # train_cls = cls[validation_size:]
 
   data_sets.train = DataSet(train_images, train_labels)
   data_sets.valid = DataSet(validation_images, validation_labels)
