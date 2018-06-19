@@ -24,7 +24,7 @@ Training data was augmented by cropping, scaling and rotating in order to enrich
 
 * **Early stopping**:
 
-The training of the classifier was terminated early to avoid overfitting. Empirically, the optimal training duration was determined to be ~9000 interations. If we left the classifier to train for longer, it's performance on the training data would have continued to increase to 100% accuracy, but it would have performed worse on unseed data due to overfitting.
+The training of the classifier was terminated early to avoid overfitting. Empirically, the optimal training duration was determined to be ~12 epochs. If we left the classifier to train for longer, it's performance on the training data would have continued to increase to 100% accuracy, but it would have performed worse on unseed data due to overfitting.
 
 * **Potential extentions** 
 
